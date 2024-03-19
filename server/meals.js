@@ -1,23 +1,17 @@
-// Import Express
+// routes/meals.js
+
 const express = require('express');
-
-// Create Express router
 const router = express.Router();
+const Meal = require('../models/Meal');
 
-// Import SQL helper functions from the db directory
-const { getMealsByFilter } = require('../db/sqlHelperFunctions/meals');
-
-// GET meals by a specific filter value
-router.get('/filter/:filterValue', async (req, res) => {
-  const { filterValue } = req.params;
+// Route to get all meals
+router.get('/', async (req, res) => {
   try {
-    const meals = await getMealsByFilter(filterValue);
+    const meals = await Meal.find();
     res.json(meals);
   } catch (error) {
-    console.error('Error getting meals by filter:', error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// Export the router
 module.exports = router;

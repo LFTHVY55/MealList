@@ -4,7 +4,6 @@ const express = require('express');
 // Create Express app
 const app = express();
 
-
 let meals = [
   { id: 1, name: 'Breakfast', description: 'Scrambled eggs and toast' },
   { id: 2, name: 'Lunch', description: 'Chicken salad' },
@@ -33,6 +32,11 @@ apiRouter.get('/meals/:id', (req, res) => {
   } else {
     res.status(404).json({ error: 'Meal not found' });
   }
+});
+
+// Define a route to get all meals
+apiRouter.get('/meals', (req, res) => {
+  res.json(meals);
 });
 
 // Define the port for the server to listen on
